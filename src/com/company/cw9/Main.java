@@ -2,27 +2,45 @@ package com.company.cw9;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
 
 public class Main {
 
     public static void main(String[] args) {
-        List<String> list = new ArrayList<>();
 
-        list.add("one");
-        list.add("two");
-        list.add("three");
-        list.add("four");
-        list.add("five");
-        list.add("six");
-        list.add("seven");
-        list.add("eight");
-        list.add("nine");
-        list.add("ten");
+        int max = 1000000;
+        List<String> values = new ArrayList<>(max);
 
-        Stream stream = list.stream();
+        for (int i = 0; i < max; i++) {
+            UUID uuid = UUID.randomUUID();
+            values.add(uuid.toString());
+        }
 
-        stream.filter(x -> x.toString().length() == 3).limit(2).forEach(System.out::println);
+        long t0 = System.nanoTime();
+        long count = values.stream().sorted().count();
+        long t1 = System.nanoTime();
+        long ms = TimeUnit.NANOSECONDS.toMillis(t1-t0);
+
+        System.out.println(ms);
+
+//        List<String> list = new ArrayList<>();
+//
+//        list.add("one");
+//        list.add("two");
+//        list.add("three");
+//        list.add("four");
+//        list.add("five");
+//        list.add("six");
+//        list.add("seven");
+//        list.add("eight");
+//        list.add("nine");
+//        list.add("ten");
+//
+//        Stream stream = list.stream();
+//
+//        stream.filter(x -> x.toString().length() == 3).limit(2).forEach(System.out::println);
 
 //        list.forEach(System.out::println);
     }
