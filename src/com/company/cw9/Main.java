@@ -2,6 +2,7 @@ package com.company.cw9;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
@@ -10,20 +11,28 @@ public class Main {
 
     public static void main(String[] args) {
 
-        int max = 1000000;
-        List<String> values = new ArrayList<>(max);
+        Optional<String> optionalS = Optional.ofNullable(returnName("неVasya"));
 
-        for (int i = 0; i < max; i++) {
-            UUID uuid = UUID.randomUUID();
-            values.add(uuid.toString());
-        }
+        System.out.println(optionalS.orElse("No name"));
 
-        long t0 = System.nanoTime();
-        long count = values.stream().sorted().count();
-        long t1 = System.nanoTime();
-        long ms = TimeUnit.NANOSECONDS.toMillis(t1-t0);
-
-        System.out.println(ms);
+//        int max = 1000000;
+//        List<UUID> values = new ArrayList<>(max);
+//
+//        for (int i = 0; i < max; i++) {
+//            UUID uuid = UUID.randomUUID();
+//            values.add(uuid);
+//        }
+//
+//        long t0 = System.nanoTime();
+//
+//        long count = values.parallelStream()
+//                .distinct()
+//                .count();
+//
+//        long t1 = System.nanoTime();
+//        long ms = TimeUnit.NANOSECONDS.toMillis(t1-t0);
+//
+//        System.out.println(ms);
 
 //        List<String> list = new ArrayList<>();
 //
@@ -44,6 +53,11 @@ public class Main {
 
 //        list.forEach(System.out::println);
     }
+
+    static String returnName(String name) {
+        return name.equals("Vasya") ? null : name;
+    }
+
 //    @FunctionalInterface
 //    interface Function {
 //        int execute (int a, int b);
